@@ -32,10 +32,9 @@ class MenuController extends Controller
 //        dd($res);
         if (!$res) {
             dd('添加失败');
-        }else{
-            return redirect('menu/create_menu');
         }
-//        $this->menu();
+        //根据表数据翻译成菜单结构
+        $this->menu();
     }
 
     /** 数据库菜单表格数据*/
@@ -47,7 +46,7 @@ class MenuController extends Controller
 //        dd($menu_list);
          foreach($menu_list as $vv) {
              $menu_info = DB::table('wechat_menu')->where(['name1'=>$vv->name1])->get(); // 获取一级菜单下所有 三维数组
-//             dd($menu_info);
+             dd($menu_info);
              $menu = [];
              foreach ($menu_info as $v) {
                  $menu[] = (array)$v; // 获取一级菜单下所有中的一个 二维数组

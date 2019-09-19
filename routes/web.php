@@ -217,3 +217,10 @@ Route::prefix('menu')->namespace('wechat')->group(function(){
    Route::post('save_menu','MenuController@save_menu');                      // 自定义菜单
 });
 /**************************************************************************************************************/
+
+/**************************************JS-SDK*******************************************************************/
+Route::prefix('sdk')->namespace('wechat')->group(function(){
+    Route::get('sdk_list','JSSDKController@sdk_list');
+    Route::get('get_wechat_ticket','JSSDKController@get_wechat_ticket');
+
+});
