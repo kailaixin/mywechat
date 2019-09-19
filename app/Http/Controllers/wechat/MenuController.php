@@ -46,7 +46,7 @@ class MenuController extends Controller
 //        dd($menu_list);
          foreach($menu_list as $vv) {
              $menu_info = DB::table('wechat_menu')->where(['name1'=>$vv->name1])->get(); // 获取一级菜单下所有 三维数组
-             dd($menu_info);
+//             dd($menu_info);
              $menu = [];
              foreach ($menu_info as $v) {
                  $menu[] = (array)$v; // 获取一级菜单下所有中的一个 二维数组
@@ -62,7 +62,7 @@ class MenuController extends Controller
                              'name' => $v['name1'],
                              'key'  => $v['event_value']
                          ];
-                     }elseif ($v['type' == 2]) { // view
+                     }elseif ($v['type'] == 2) { // view
                          $arr = [
                              'type' => 'view',
                              'name' => $v['name1'],
@@ -71,13 +71,14 @@ class MenuController extends Controller
                      }
                  }elseif ($v['button_type'] == 2) { // 带有二级菜单的一级菜单
                      $arr['name'] = $v['name1'];
+//                     dd($arr);
                      if ($v['type'] == 1) { // click
                          $button_arr = [
                              'type' => 'click',
                              'name' => $v['name2'],
                              'key'  => $v['event_value']
                          ];
-                     }elseif ($v['type' == 2]) { // view
+                     }elseif ($v['type'] == 2) { // view
                          $button_arr = [
                              'type' => 'view',
                              'name' => $v['name2'],
