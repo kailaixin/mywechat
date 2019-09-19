@@ -10,8 +10,11 @@ use DB;
 class MenuController extends Controller
 {
     public $tools;
+    public $redis;
     public function __construct(Tools $tools)
     {
+        $this->redis = new \Redis();
+        $this->redis->connect('127.0.0.1','6379');
         $this->tools = $tools;
     }
 
@@ -90,42 +93,64 @@ class MenuController extends Controller
              }
              $data['button'][] = $arr;
          }
-//         dd($arr);
+//         dd($data);
 
-         $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->tools->get_wechat_access_token();
-         /*$data = [
-             'button' => [
-                 [
-                     'type' => 'click',
-                     'name' => '今日歌曲',
-                     'key' => 'V1001_TODAY_MUSIC'
-                 ],
-                 [
-                     'name' => '菜单',
-                     'sub_button' => [
-                         [
-                             'type' => 'view',
-                             'name' => '搜索',
-                             'url'  => 'http://www.soso.com/'
-                         ],
-                         [
-                             'type' => 'miniprogram',
-                             'name' => 'wxa',
-                             'url' => 'http://mp.weixin.qq.com',
-                             'appid' => 'wx286b93c14bbf93aa',
-                             'pagepath' => 'pages/lunar/index'
-                         ],
-                         [
-                             'type' => 'click',
-                             'name' => '赞一下我们',
-                             'key'  => 'V1001_GOOD'
-                         ]
-                     ]
-                 ]
-             ]
-         ];*/
+         $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->get_wechat_access_token();
+//         dd($url);
          $res = $this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+//         dd($res);
          $result = json_decode($res,1);
-         dd($result);
      }
+/**
+ *获取token
+ */
+    public function get_wechat_access_token()
+    {
+        //加入缓存
+        $access_token_key = 'wechat_access_token';
+        if($this->redis->exists($access_token_key)){
+            //存在
+            return $this->redis->get($access_token_key);
+        }else{
+            //不存在
+            $result = file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WECHAT_APPID').'&secret='.env('WECHAT_APPSECRET').'');
+//            dd($result);
+            $re = json_decode($result,1);
+//            dd($re);
+            $this->redis->set($access_token_key,$re['access_token'],$re['expires_in']);  //加入缓存
+            return $re['access_token'];
+        }
+    }
 }
+/*$data = [
+            'button' => [
+                [
+                    'type' => 'click',
+                    'name' => '今日歌曲',
+                    'key' => 'V1001_TODAY_MUSIC'
+                ],
+                [
+                    'name' => '菜单',
+                    'sub_button' => [
+                        [
+                            'type' => 'view',
+                            'name' => '搜索',
+                            'url'  => 'http://www.soso.com/'
+                        ],
+                        [
+                            'type' => 'miniprogram',
+                            'name' => 'wxa',
+                            'url' => 'http://mp.weixin.qq.com',
+                            'appid' => 'wx286b93c14bbf93aa',
+                            'pagepath' => 'pages/lunar/index'
+                        ],
+                        [
+                            'type' => 'click',
+                            'name' => '赞一下我们',
+                            'key'  => 'V1001_GOOD'
+                        ]
+                    ]
+                ]
+            ]
+        ];*/
+//         dd($url);

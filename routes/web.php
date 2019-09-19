@@ -214,7 +214,8 @@ Route::prefix('agent')->namespace('wechat')->group(function(){
 Route::prefix('menu')->namespace('wechat')->group(function(){
    Route::get('menu','MenuController@menu');                                 // 自定义菜单
    Route::get('create_menu','MenuController@create_menu');                   // 自定义菜单
-   Route::post('save_menu','MenuController@save_menu');                      // 自定义菜单
+    Route::post('save_menu','MenuController@save_menu');                      // 自定义菜单
+    Route::get('get_wechat_access_token','MenuController@get_wechat_access_token');  //获取token
 });
 /**************************************************************************************************************/
 
