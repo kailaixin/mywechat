@@ -48,7 +48,7 @@ class Kernel extends ConsoleKernel
             $req = $this->tools->curl_post($url,$data);
             $req = json_decode($req,1);
 //        dd($req);
-        })->daily();
+        })->everyMinute();
     }
 
 
