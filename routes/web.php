@@ -225,7 +225,10 @@ Route::prefix('sdk')->namespace('wechat')->group(function(){
     Route::get('get_wechat_ticket','JSSDKController@get_wechat_ticket');
 
 });
-
+/************************************XML数据解析 **************************************************************************/
+Route::prefix('wechat')->group(function(){
+    Route::post('event','wechat\EventController@event');//XML数据解析
+});
 
 /*******************************************月考测试1*******************************************************************/
 Route::prefix('ceshi1')->group(function(){
