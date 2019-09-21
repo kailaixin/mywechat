@@ -8,7 +8,7 @@
     <title>标签列表</title>
 </head>
 <body>
-                <h1 align="center"><a href="{{url('ceshi/biaoqian')}}">添加标签</a></h1>
+                <h1 align="center"><a href="{{url('ceshi1/biaoqian')}}">添加标签</a></h1>
 <form action="" align="center">
         <table border="1" align="center">
             <tr>

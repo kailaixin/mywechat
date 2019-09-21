@@ -101,7 +101,7 @@ class Ceshi1Controller extends Controller
         $url = 'https://api.weixin.qq.com/cgi-bin/tags/create?access_token='.$this->tools->get_wechat_access_token().'';
 //        dd($url);
         $data = [
-            'tags'=>[
+            'tag'=>[
                 'name'=>$post['name'],
             ]
         ];
@@ -109,9 +109,6 @@ class Ceshi1Controller extends Controller
         $data = json_encode($data,JSON_UNESCAPED_UNICODE);
 //        dd($data);
         $req = $this->tools->curl_post($url,$data);
-        $this->tools->redis->set('tag_list',$req);
-        $tag_list = $this->tools->redis->get('tag_list');
-//        dd($tag_list);
         if($req){
          return redirect('ceshi1/tag_list');
         }
@@ -183,7 +180,7 @@ class Ceshi1Controller extends Controller
     public function tag_word_do()
     {
         $post = request()->all();
-//        dd($post);
+        dd($post);
         $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$this->tools->get_wechat_access_token().'';
 //        dd($url);
         $data = [

@@ -9,7 +9,7 @@
 </head>
 <body>
         <h1 align="center"><a href="{{url('ceshi1/tag_list')}}">标签列表</a> </h1>
-<form action="{{url('ceshi1/biaoqian_do')}}" method="post" align="center">
+<form action="{{url('ceshi1\biaoqian_do')}}" method="post" align="center">
     @csrf
             添加标签: <input type="text" name="name">
                     <input type="submit" value="添加">
