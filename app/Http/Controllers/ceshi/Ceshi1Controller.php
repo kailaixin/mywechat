@@ -199,7 +199,11 @@ class Ceshi1Controller extends Controller
         $data = json_encode($data,JSON_UNESCAPED_UNICODE);
 //        dd($data);
         $req = $this->tools->curl_post($url,$data);
-        dd($req);
+        $req = json_decode($req,1);
+//        dd($req);
+        if($req['errcode']=='0'){
+            return redirect('ceshi1/tag_list');
+        }
     }
 
 }
