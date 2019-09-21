@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Tools;
-use Illuminate\Http\File;
 
 class Tools {
     public $redis;
-
     public function __construct()
     {
+//        echo phpinfo();die;
         $this->redis = new \Redis();
         $this->redis->connect('127.0.0.1','6379');
     }
@@ -26,7 +25,7 @@ class Tools {
         }else{
             //不存在
             $result = file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WECHAT_APPID').'&secret='.env('WECHAT_APPSECRET').'');
-            dd($result);
+//            dd($result);
             $re = json_decode($result,1);
 //            dd($re);
             $this->redis->set($access_token_key,$re['access_token'],$re['expires_in']);  //加入缓存
@@ -63,11 +62,13 @@ class Tools {
      */
     public function curl_post($url,$data)
     {
+//        dd(13213);
         $curl = curl_init($url);
         curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
         curl_setopt($curl,CURLOPT_POST,true);  //发送post
         curl_setopt($curl,CURLOPT_POSTFIELDS,$data);
         $data = curl_exec($curl);
+//        dd($data);
         $errno = curl_errno($curl);  //错误码
         $err_msg = curl_error($curl); //错误信息
         curl_close($curl);

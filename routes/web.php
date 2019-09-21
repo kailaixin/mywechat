@@ -225,3 +225,21 @@ Route::prefix('sdk')->namespace('wechat')->group(function(){
     Route::get('get_wechat_ticket','JSSDKController@get_wechat_ticket');
 
 });
+
+
+/*******************************************月考测试1*******************************************************************/
+Route::prefix('ceshi1')->group(function(){
+    Route::get('wechat_login','ceshi\Ceshi1Controller@wechat_login');//微信授权登录
+    Route::post('wechat_login_do','ceshi\Ceshi1Controller@wechat_login_do');//微信授权登录
+    Route::get('code','ceshi\Ceshi1Controller@code');//微信授权登录
+    Route::get('get_userinfo','ceshi\Ceshi1Controller@get_userinfo');//添加用户粉丝列表
+    Route::get('userinfo','ceshi\Ceshi1Controller@userinfo');//微信用户列表
+    Route::get('biaoqian','ceshi\Ceshi1Controller@biaoqian');//创建用户标签
+    Route::get('tag_list','ceshi\Ceshi1Controller@tag_list');//展示用户标签
+    Route::get('tag_del','ceshi\Ceshi1Controller@tag_del');//删除用户标签
+    Route::get('tag_save','ceshi\Ceshi1Controller@tag_save');//添加用户标签
+    Route::get('tag_word','ceshi\Ceshi1Controller@tag_word');//用户标签群发消息
+    Route::post('tag_word_do','ceshi\Ceshi1Controller@tag_word_do');//用户标签群发消息处理
+    Route::post('biaoqian_do','ceshi\Ceshi1Controller@biaoqian_do');//用户标签处理
+
+});

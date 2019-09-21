@@ -10,12 +10,11 @@ use DB;
 class JSSDKController extends Controller
 {
     public $tools;
-    public $redis;
+
     public function __construct(Tools $tools)
     {
       $this->tools= $tools;
-       $this->redis = new \Redis();
-       $this->redis->connect('127.0.0.1','6379');
+
     }
 
     public function sdk_list()
