@@ -44,7 +44,7 @@ class EventController extends Controller
             }
         }
 
-        $message = '小生不才未得姑娘青睐扰姑娘良久姑娘勿怪！';
+        $message = '小生不才,未得姑娘青睐,扰姑娘良久,姑娘勿怪！';
         $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
         echo $xml_str;
     }

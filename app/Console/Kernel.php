@@ -36,7 +36,7 @@ class Kernel extends ConsoleKernel
         $schedule->call(function(){
 //            123123;
 //            \Log::Info('13215613');
-            $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$this->tools->get_wechat_access_token().'';
+            $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$this->tools->get_wechat_access_token();
 //        dd($url);
             $data = [
                 "filter"=>[
@@ -48,10 +48,10 @@ class Kernel extends ConsoleKernel
                 ],
                 'msgtype'=>'text',
             ];
+//        dd($data);
             $data = json_encode($data,JSON_UNESCAPED_UNICODE);
 //        dd($data);
             $req = $this->tools->curl_post($url,$data);
-            $req = json_decode($req,1);
 //        dd($req);
         })->everyMinute();
     }
