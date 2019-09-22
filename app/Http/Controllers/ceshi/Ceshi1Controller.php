@@ -179,45 +179,29 @@ class Ceshi1Controller extends Controller
     //用户标签群发处理
     public function tag_word_do()
     {
-//        $post = request()->all();
-//        dd($post);
-//        $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$this->tools->get_wechat_access_token().'';
-////        dd($url);
-//        $data = [
-//            "filter"=>[
-//                "is_to_all"=>false,
-//                'tag_id'=>$post['tagid'],
-//            ],
-//            "text"=>[
-//                'content'=>$post['word']
-//            ],
-//            'msgtype'=>'text',
-//        ];
-//        $data = json_encode($data,JSON_UNESCAPED_UNICODE);
-////        dd($data);
-//        $req = $this->tools->curl_post($url,$data);
-//        $req = json_decode($req,1);
-////        dd($req);
-//        if($req['errcode']=='0'){
-//            return redirect('ceshi1/tag_list');
-//        }
+        $post = request()->all();
+        dd($post);
         $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$this->tools->get_wechat_access_token().'';
 //        dd($url);
         $data = [
             "filter"=>[
                 "is_to_all"=>false,
-                'tag_id'=>'108',
+                'tag_id'=>$post['tagid'],
             ],
             "text"=>[
-                'content'=>'爱你哦'
+                'content'=>$post['word']
             ],
             'msgtype'=>'text',
         ];
-//        dd($data);
         $data = json_encode($data,JSON_UNESCAPED_UNICODE);
 //        dd($data);
         $req = $this->tools->curl_post($url,$data);
         $req = json_decode($req,1);
+//        dd($req);
+        if($req['errcode']=='0'){
+            return redirect('ceshi1/tag_list');
+        }
+
     }
 
 }

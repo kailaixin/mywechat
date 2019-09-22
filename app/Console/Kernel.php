@@ -26,6 +26,13 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
+
+    public $tools;
+    public function __construct(Tools $tools)
+    {
+        $this->tools=$tools;
+    }
+
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')
@@ -33,6 +40,8 @@ class Kernel extends ConsoleKernel
 //        $schedule->call(function(){
 //            DB::table('user_info')->insert(['user_name'=>'琉璃仙','user_pwd'=>md5('liulixian'),'headimg'=>'z1EaUeLedVB77Wy0hyK0j1kNqUdBdwhKWYY6FyBB.png','create_time'=>time()]);
 //        })->cron('* * * * *');
+
+
         $schedule->call(function(){
 //            123123;
 //            \Log::Info('13215613');
@@ -53,6 +62,7 @@ class Kernel extends ConsoleKernel
 //        dd($data);
             $req = $this->tools->curl_post($url,$data);
 //        dd($req);
+            \Log::Info('13215613');
         })->everyMinute();
     }
 
