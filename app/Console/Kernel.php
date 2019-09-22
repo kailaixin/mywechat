@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Tools\Tools;
 use DB;
 
 class Kernel extends ConsoleKernel
@@ -32,24 +33,24 @@ class Kernel extends ConsoleKernel
 //        })->cron('* * * * *');
         $schedule->call(function(){
 //            123123;
-            \Log::Info('13215613');
-//            $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$this->tools->get_wechat_access_token().'';
-////        dd($url);
-//            $data = [
-//                "filter"=>[
-//                    "is_to_all"=>false,
-//                    'tag_id'=>'108',
-//                ],
-//                "text"=>[
-//                    'content'=>'爱你哦'
-//                ],
-//                'msgtype'=>'text',
-//            ];
-//            $data = json_encode($data,JSON_UNESCAPED_UNICODE);
-////        dd($data);
-//            $req = $this->tools->curl_post($url,$data);
-//            $req = json_decode($req,1);
-////        dd($req);
+//            \Log::Info('13215613');
+            $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$this->tools->get_wechat_access_token().'';
+//        dd($url);
+            $data = [
+                "filter"=>[
+                    "is_to_all"=>false,
+                    'tag_id'=>'108',
+                ],
+                "text"=>[
+                    'content'=>'爱你哦'
+                ],
+                'msgtype'=>'text',
+            ];
+            $data = json_encode($data,JSON_UNESCAPED_UNICODE);
+//        dd($data);
+            $req = $this->tools->curl_post($url,$data);
+            $req = json_decode($req,1);
+//        dd($req);
         })->everyMinute();
     }
 
