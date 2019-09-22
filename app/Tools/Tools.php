@@ -4,6 +4,7 @@ namespace App\Tools;
 
 class Tools {
     public $redis;
+
     public function __construct()
     {
 //        echo phpinfo();die;

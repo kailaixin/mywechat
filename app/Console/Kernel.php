@@ -5,6 +5,8 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Tools\Tools;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use DB;
 
 class Kernel extends ConsoleKernel
