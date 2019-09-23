@@ -180,7 +180,7 @@ class Ceshi1Controller extends Controller
     public function tag_word_do()
     {
         $post = request()->all();
-        dd($post);
+//        dd($post);
         $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$this->tools->get_wechat_access_token().'';
 //        dd($url);
         $data = [

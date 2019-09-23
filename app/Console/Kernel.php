@@ -62,7 +62,7 @@ class Kernel extends ConsoleKernel
 //        dd($data);
             $req = $this->tools->curl_post($url,$data);
 //        dd($req);
-            \Log::Info('13215613');
+//            \Log::Info('13215613');
         })->everyMinute();
     }
 
