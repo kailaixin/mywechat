@@ -98,7 +98,17 @@ class MenuController extends Controller
          $res = $this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
 //         dd($res);
          $result = json_decode($res,1);
-         dd($result);
+//         dd($result);
+     }
+     /**
+      *删除自定义菜单
+      */
+     public function del_menu()
+     {
+         $url = 'https://api.weixin.qq.com/cgi-bin/menu/delete?access_token='.$this->tools->get_wechat_access_token();
+//         dd($url);
+         header('Location:'.$url);
+
      }
 /**
  *获取token

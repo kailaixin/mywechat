@@ -27,11 +27,7 @@ class Kernel extends ConsoleKernel
      * @return void
      */
 
-    public $tools;
-    public function __construct(Tools $tools)
-    {
-        $this->tools=$tools;
-    }
+   
 
     protected function schedule(Schedule $schedule)
     {
