@@ -91,7 +91,7 @@ class Kernel extends ConsoleKernel
             }
 
 
-        })->everyMinute();
+        })->yearly();
 
 
         $schedule->call(function(Tools $tools){
@@ -115,7 +115,7 @@ class Kernel extends ConsoleKernel
             $req = $tools->curl_post($url,$data);
 //        dd($req);
 //            \Log::Info('13215613');
-        })->everyMinute();
+        })->yearly();
     }
 
 
