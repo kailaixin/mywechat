@@ -105,7 +105,7 @@ class Kernel extends ConsoleKernel
                     'tag_id'=>'108',
                 ],
                 "text"=>[
-                    'content'=>'爱你哦'
+                    'content'=>'time()'
                 ],
                 'msgtype'=>'text',
             ];
