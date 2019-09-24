@@ -53,19 +53,19 @@ class EventController extends Controller
                 echo $xml_str;
                 }else{
                     //未签到  签到加积分
-                    if($prev_day == $openid_info->sign_day){ //如果昨天的日期已经在数据库了,连续签到
+                    if($prev_day == $openid_info->sign_date){ //获取
                         //连续签到 5天一轮换
                         if($openid_info->sign_day >= 5){
 //                            dd(1231);
                             DB::connection('1901')->table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->update([
-                                'sign_day'=>$openid_info->sign_day + 1,
+                                'sign_day'=>1,
                                 'jifen'=>$openid_info->jifen + 5,
                                 'sign_date'=>$today,
                             ]);
                         }else{
                             DB::connection('1901')->table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->update([
                                 'sign_day'=>$openid_info->sign_day + 1,
-                                'jifen'=>$openid_info->jifen + 5 *($openid_info->sign_day + 1),
+                                'jifen'=>$openid_info->jifen + 5 * ($openid_info->sign_day + 1),
                                 'sign_date'=>$today,
                             ]);
                         }
