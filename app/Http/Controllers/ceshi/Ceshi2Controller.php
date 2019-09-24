@@ -18,7 +18,7 @@ class Ceshi2Controller extends Controller
     //添加自定义菜单
     public function create_menu()
     {
-        dd(date('Y-m-d H:i:s' ,1569286578));
+        dd(date('Y-m-d H:i:s' ,1569296427));
         return view('ceshi/create_menu');
     }
     //自定义菜单处理
