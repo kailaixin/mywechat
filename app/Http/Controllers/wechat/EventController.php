@@ -4,10 +4,16 @@ namespace App\Http\Controllers\wechat;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Tools\Tools;
 use DB;
 
 class EventController extends Controller
 {
+    public $tools;
+    public function __construct(Tools $tools)
+    {
+        $this->tools = $tools;
+    }
     public function event()
     {
 //        echo $_GET['echostr'];die();
@@ -25,13 +31,24 @@ class EventController extends Controller
 //        dd($xml_arr);
         \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
 //        echo $_GET['echostr'];
+        //业务逻辑部分
+//            关注公众号的逻辑
+        if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'subscribe'){
+            //拿到用户基本信息的openid
+            $user_url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->get_wechat_access_token().'&openid='.$xml_arr['FromUserName'].'&lang=zh_CN';
+            $res = file_get_contents($user_url);
+            $res = json_decode($res,1);
+
+            $message = '欢迎'.$res['nickname'].'同学，感谢您的关注';
+            $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+            echo $xml_str;
+        }
 
 
 
-        $message = '小生不才,未得姑娘青睐,扰姑娘良久,姑娘勿怪！';
-        //被动回复
-        $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
 
-        echo $xml_str;
+
+
+
     }
 }
