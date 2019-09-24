@@ -94,8 +94,13 @@ class EventController extends Controller
                         'openid'=>$xml_arr['FromUserName'],
                         'add_time'=>time(),
                     ]);
-
-
+                    $message = '积分:0';
+                    $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                    echo $xml_str;
+                }else{
+                    $message = '积分:'.$openid_info->jifen;
+                    $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                    echo $xml_str;
                 }
             }
         }
@@ -116,14 +121,6 @@ class EventController extends Controller
                         'openid'=>$xml_arr['FromUserName'],
                         'add_time'=>time(),
                 ]);
-                $message = '积分:0';
-                $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
-                echo $xml_str;
-            }else{
-//                有数据更新
-                $message = '积分:'.$openid_info->jifen;
-                $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
-                echo $xml_str;
             }
 
             $message = '欢迎'.$res['nickname'].'同学，感谢您的关注';
