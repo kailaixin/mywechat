@@ -84,7 +84,7 @@ class Kernel extends ConsoleKernel
 
                     $res = $this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
 //                    dd($res);
-                    \Log::Info($res);
+//                    \Log::Info($res);
 
                 }
 
