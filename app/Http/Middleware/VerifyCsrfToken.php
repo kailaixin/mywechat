@@ -27,5 +27,6 @@ class VerifyCsrfToken extends Middleware
 //        '/biaobai/notify_url'
         'wechat/event',
         'ceshi2/event',
+        'ceshi2/ceshi',
     ];
 }

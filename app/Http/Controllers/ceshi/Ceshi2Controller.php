@@ -15,6 +15,67 @@ class Ceshi2Controller extends Controller
         $this->tools = $tools;
     }
 
+    //测试 任务调度
+    public function ceshi()
+    {
+//        dd(56156);
+        //获取用户列表接口
+        $user_url = 'https://api.weixin.qq.com/cgi-bin/user/get?access_token='.$this->tools->get_wechat_access_token().'&next_openid=';
+//        dd($user_url);
+        $req = file_get_contents($user_url);
+        $req = json_decode($req,1);
+//        dd($req);
+        foreach($req['data']['openid'] as $v){
+            $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->get_wechat_access_token().'&openid='.$v.'&lang=zh_CN';
+            $user_re = file_get_contents($url);
+            $user_info = json_decode($user_re,1);
+//            dd($user_info);
+
+                $list_openid = DB::connection('1901')->table('wechat_openid')->where(['openid'=>$v])->first();
+                if(empty($list_openid)){
+                    DB::connection('1901')->table('wechat_openid')->where(['openid'=>$v])->insert([
+                        'openid'=>$v,
+                        'add_time'=>time(),
+                    ]);
+//                    dd($list_openid);
+                    //未签到
+                    //发送模板消息接口
+                    $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$this->tools->get_wechat_access_token();
+//        dd($url);
+                    $data = [
+                        'touser'=>'oIhHHwSoKsFZacgx0NZ9B9RV6xmg',
+                        'template_id'=>'wdZiz1cGT1DmRu9A8XuyEtNeCKv6B-EIHxJW4BnkAeY',
+                        "url"=>"http://weixin.qq.com/download",
+                        'data'=>[
+                            'keyword1'=>[
+                                'value'=>$user_info['nickname'],
+                                'color'=>'',
+                            ],
+                            'keyword2'=>[
+                                'value'=>'未签到',
+                                'color'=>'',
+                            ],
+                            'keyword3'=>[
+                                'value'=>'0',
+                                'color'=>'',
+                            ],
+                            'keyword3'=>[
+                                'value'=>'',
+                                'color'=>'',
+                            ],
+                        ],
+                    ];
+
+                   $res = $this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+                   dd($res);
+
+
+                }
+
+        }
+
+    }
+
     //添加自定义菜单
     public function create_menu()
     {
