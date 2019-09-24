@@ -89,16 +89,17 @@ class MenuController extends Controller
                      $arr['sub_button'][] = $button_arr;
                  }
              }
+//             dd($v);
              $data['button'][] = $arr;
          }
-//         dd($data);
+//         dd($arr);
 
          $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->get_wechat_access_token();
 //         dd($url);
          $res = $this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
 //         dd($res);
          $result = json_decode($res,1);
-//         dd($result);
+         dd($result);
      }
      /**
       *删除自定义菜单

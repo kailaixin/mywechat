@@ -250,5 +250,7 @@ Route::prefix('ceshi1')->group(function(){
 
 /******************************************月考测试2******************************************************************/
 Route::prefix('ceshi2')->group(function(){
-    Route::get('');
+    Route::get('create_menu','ceshi\Ceshi2Controller@create_menu');//自定义菜单视图页面
+    Route::post('create_menu_do','ceshi\Ceshi2Controller@create_menu_do');//自定义菜单处理页面
+    Route::post('event','ceshi\Ceshi2Controller@event');//关注取消关注事件
 });
