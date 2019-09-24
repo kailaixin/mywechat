@@ -33,9 +33,58 @@ class EventController extends Controller
 //        echo $_GET['echostr'];
         //业务逻辑部分
                 //签到逻辑
-//        if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'CLICK'){
+        if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'CLICK'){
+            if ($xml_arr['EventKey'] == '2'){//操作签到
+                $today = date('Y-m-d',time());//当天日期
+                $prev_day = date('Y-m-d',strtotime('-1 days'));//前一天日期
+            $openid_info = DB::connection('1901')->table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->first();
+//            dd($openid_info);
+                if(empty('openid_info')){
+                    DB::conncetion('1901')->table('wechat_openid')->insert([
+                        'openid'=>$xml_arr['FromUserName'],
+                        'add_time'=>time(),
+                    ]);
+                }
+                $openid_info = DB::connection('1901')->table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->first();
+                if($openid_info->sign_date == $today){
+                    //已签到
+                $message = '今天您已经签到了';
+                $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                echo $xml_str;
+                }else{
+                    //未签到  签到加积分
+                    if($prev_day == $openid_info->sign_day){ //如果昨天的日期已经在数据库了,连续签到
+                        //连续签到 5天一轮换
+                        if($openid_info->sign_day >= 5){
+//                            dd(1231);
+                            DB::connection('1901')->table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->update([
+                                'sign_day'=>1,
+                                'jifen'=>$openid_info->jifen + 5,
+                                'sign_date'=>$today,
+                            ]);
+                        }else{
+                            DB::connection('1901')->table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->update([
+                                'sign_day'=>$openid_info->sign_day + 1,
+                                'jifen'=>$openid_info->jifen + 5 *($openid_info->sign_day + 1),
+                                'sign_date'=>$today,
+                            ]);
+                        }
 //
-//        }
+                    }else{
+                        //非连续   加积分后  连续天数变1
+                       DB::connection('1901')->table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->update([
+                                'sign_day'=>1,
+                                'jifen'=>$openid_info->jifen + 5,
+                                'sign_day'=>$today,
+                        ]);
+                    }
+                    $message = '签到成功';
+                    $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                    echo $xml_str;
+
+                }
+            }
+        }
 //            关注公众号的逻辑
         if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'subscribe'){
             //拿到用户基本信息的openid
