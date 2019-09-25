@@ -32,10 +32,21 @@ class EventController extends Controller
         \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
 //        echo $_GET['echostr'];
         //业务逻辑部分
+//             管理课程逻辑部分
+            if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'CLICK'){
+                   if ($xml_arr['EventKey'] == 'guanli'){//管理课程页面
+                       header('Location: http://www.1902.com/ceshi3/guanli');
+                   }
+                   if($xml_arr['EventKey'] == 'chakan'){//查看课程页面
 
+                   }
+            }
 
+        if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'chakan'){
+            dd('nihao');
+        }
             //关注公众号 回复消息逻辑
-        if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'CLICK'){//获取用户的基本信息
+        if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'subscribe'){//获取用户的基本信息
             $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->get_wechat_access_token().'&openid='.$xml_arr['FromUserName'].'&lang=zh_CN';
             $req = file_get_contents($url);
             $req = json_decode($req,1);
@@ -48,10 +59,11 @@ class EventController extends Controller
                     'add_time'=>time(),
                 ]);
             }
-        }
             $message = '欢迎'.$req['nickname'].'同学进入选课系统';
             $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
             echo $xml_str;
+        }
+
         }
 
 

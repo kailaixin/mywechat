@@ -255,9 +255,17 @@ Route::prefix('ceshi2')->group(function(){
     Route::post('event','ceshi\Ceshi2Controller@event');//关注取消关注事件
     Route::post('ceshi','ceshi\Ceshi2Controller@ceshi');//测试任务调度
     Route::post('ceshi2','ceshi\Ceshi2Controller@ceshi2');//测试任务调度
+
 });
 
 /******************************************月考三*****************************************************************************/
 Route::prefix('ceshi3')->group(function(){
-    Route::get('index','ceshi\Ceshi3Controller@index');
+    Route::get('guanli','ceshi\Ceshi3Controller@guanli');//第三方登录页面
+    Route::post('guanli_do','ceshi\Ceshi3Controller@guanli_do');//登录处理页面
+    Route::get('code','ceshi\Ceshi3Controller@code');//获取code
+    Route::get('manage','ceshi\Ceshi3Controller@manage');//课程管理页面
+    Route::post('manage_do','ceshi\Ceshi3Controller@manage_do');//课程管理页面处理
+    Route::get('index','ceshi\Ceshi3Controller@index');//课程展示页面
+    Route::get('update','ceshi\Ceshi3Controller@update');//课程修改页面
+    Route::post('update_do','ceshi\Ceshi3Controller@update_do');//课程修改页面处理
 });
