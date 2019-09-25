@@ -26,6 +26,7 @@ class Ceshi2Controller extends Controller
         $req = json_decode($req,1);
 //        dd($req);
         foreach($req['data']['openid'] as $v){
+            //获取用户基本信息
             $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->get_wechat_access_token().'&openid='.$v.'&lang=zh_CN';
             $user_re = file_get_contents($url);
             $user_info = json_decode($user_re,1);
@@ -65,8 +66,9 @@ class Ceshi2Controller extends Controller
                             ],
                         ],
                     ];
+                    dd($data);
 
-                   $res = $this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+                    $res = $this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
                    dd($res);
 
 
