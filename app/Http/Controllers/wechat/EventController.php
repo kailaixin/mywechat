@@ -35,7 +35,7 @@ class EventController extends Controller
 //             管理课程逻辑部分
             if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'CLICK'){
                    if ($xml_arr['EventKey'] == 'guanli'){//管理课程页面
-                       header('Location: http://www.1902.com/ceshi3/guanli');
+                       header('Location:59.110.216.249/ceshi3/guanli');
                    }
                    if($xml_arr['EventKey'] == 'chakan'){//查看课程页面
 
