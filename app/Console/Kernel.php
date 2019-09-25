@@ -36,16 +36,16 @@ class Kernel extends ConsoleKernel
         $schedule->call(function(Tools $tools){
             //功能 业务逻辑
             \Log::Info('自动执行任务');
-            dd(56156);
+//            dd(56156);
             //获取用户列表接口
-            $user_url = 'https://api.weixin.qq.com/cgi-bin/user/get?access_token='.$this->tools->get_wechat_access_token().'&next_openid=';
+            $user_url = 'https://api.weixin.qq.com/cgi-bin/user/get?access_token='.$tools->get_wechat_access_token().'&next_openid=';
 //        dd($user_url);
             $req = file_get_contents($user_url);
             $req = json_decode($req,1);
 //        dd($req);
             foreach($req['data']['openid'] as $v){
                 //获取用户基本信息
-                $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->get_wechat_access_token().'&openid='.$v.'&lang=zh_CN';
+                $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$tools->get_wechat_access_token().'&openid='.$v.'&lang=zh_CN';
                 $user_re = file_get_contents($url);
                 $user_info = json_decode($user_re,1);
 //            dd($user_info);
@@ -58,7 +58,7 @@ class Kernel extends ConsoleKernel
                         'add_time'=>time(),
                     ]);
 //           //发送模板消息接口
-                    $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$this->tools->get_wechat_access_token();
+                    $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$tools->get_wechat_access_token();
 //        dd($url);
                     $data = [
                         'touser'=>'oIhHHwSoKsFZacgx0NZ9B9RV6xmg',
@@ -84,14 +84,14 @@ class Kernel extends ConsoleKernel
                         ],
                     ];
 
-                    $res = $this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+                    $res = $tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
                 }else{
 //                    有数据的
                     //今天的时间
                     $today = date('Y-m-d',time());
                     if($list_openid->sign_date == $today ){ //判断是否签到
                         //发送模板消息接口
-                        $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$this->tools->get_wechat_access_token();
+                        $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$tools->get_wechat_access_token();
 //        dd($url);
                         $data = [
                             'touser'=>'oIhHHwSoKsFZacgx0NZ9B9RV6xmg',
@@ -117,11 +117,11 @@ class Kernel extends ConsoleKernel
                             ],
                         ];
 
-                        $res = $this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+                        $res = $tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
 
                     }else{//未签到的
                         //发送模板消息接口
-                        $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$this->tools->get_wechat_access_token();
+                        $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$tools->get_wechat_access_token();
 //        dd($url);
                         $data = [
                             'touser'=>'oIhHHwSoKsFZacgx0NZ9B9RV6xmg',
@@ -147,7 +147,7 @@ class Kernel extends ConsoleKernel
                             ],
                         ];
 
-                        $res = $this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+                        $res = $tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
 //                        dd($res);
                     }
                 }
