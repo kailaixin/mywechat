@@ -28,5 +28,6 @@ class VerifyCsrfToken extends Middleware
         'wechat/event',
         'ceshi2/event',
         'ceshi2/ceshi',
+        'ceshi2/ceshi2',
     ];
 }

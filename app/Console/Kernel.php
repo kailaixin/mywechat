@@ -61,7 +61,7 @@ class Kernel extends ConsoleKernel
                     $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$tools->get_wechat_access_token();
 //        dd($url);
                     $data = [
-                        'touser'=>'oIhHHwSoKsFZacgx0NZ9B9RV6xmg',
+                        'touser'=>$user_info['openid'],
                         'template_id'=>'wdZiz1cGT1DmRu9A8XuyEtNeCKv6B-EIHxJW4BnkAeY',
                         "url"=>"http://weixin.qq.com/download",
                         'data'=>[
@@ -94,7 +94,7 @@ class Kernel extends ConsoleKernel
                         $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$tools->get_wechat_access_token();
 //        dd($url);
                         $data = [
-                            'touser'=>'oIhHHwSoKsFZacgx0NZ9B9RV6xmg',
+                            'touser'=>$user_info['openid'],
                             'template_id'=>'wdZiz1cGT1DmRu9A8XuyEtNeCKv6B-EIHxJW4BnkAeY',
                             "url"=>"http://weixin.qq.com/download",
                             'data'=>[
@@ -124,7 +124,7 @@ class Kernel extends ConsoleKernel
                         $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$tools->get_wechat_access_token();
 //        dd($url);
                         $data = [
-                            'touser'=>'oIhHHwSoKsFZacgx0NZ9B9RV6xmg',
+                            'touser'=>$user_info['openid'],
                             'template_id'=>'wdZiz1cGT1DmRu9A8XuyEtNeCKv6B-EIHxJW4BnkAeY',
                             "url"=>"http://weixin.qq.com/download",
                             'data'=>[
