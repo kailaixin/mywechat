@@ -34,13 +34,12 @@ class Ceshi2Controller extends Controller
 
                 $list_openid = DB::connection('1901')->table('wechat_openid')->where(['openid'=>$v])->first();
                 if(empty($list_openid)){
+                    //没有数据 就是未签到
                     DB::connection('1901')->table('wechat_openid')->where(['openid'=>$v])->insert([
                         'openid'=>$v,
                         'add_time'=>time(),
                     ]);
-//                    dd($list_openid);
-                    //未签到
-                    //发送模板消息接口
+//           //发送模板消息接口
                     $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$this->tools->get_wechat_access_token();
 //        dd($url);
                     $data = [
@@ -66,14 +65,74 @@ class Ceshi2Controller extends Controller
                             ],
                         ],
                     ];
-                    dd($data);
 
                     $res = $this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
-                   dd($res);
+                }else{
+//                    有数据的
+                   //今天的时间
+                    $today = date('Y-m-d',time());
+                    if($list_openid->sign_date == $today ){ //判断是否签到
+                        //发送模板消息接口
+                        $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$this->tools->get_wechat_access_token();
+//        dd($url);
+                        $data = [
+                            'touser'=>'oIhHHwSoKsFZacgx0NZ9B9RV6xmg',
+                            'template_id'=>'wdZiz1cGT1DmRu9A8XuyEtNeCKv6B-EIHxJW4BnkAeY',
+                            "url"=>"http://weixin.qq.com/download",
+                            'data'=>[
+                                'keyword1'=>[
+                                    'value'=>$user_info['nickname'],
+                                    'color'=>'',
+                                ],
+                                'keyword2'=>[
+                                    'value'=>'已签到',
+                                    'color'=>'',
+                                ],
+                                'keyword3'=>[
+                                    'value'=>'0',
+                                    'color'=>'',
+                                ],
+                                'keyword3'=>[
+                                    'value'=>'',
+                                    'color'=>'',
+                                ],
+                            ],
+                        ];
 
+                        $res = $this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
 
+                    }else{//未签到的
+                        //发送模板消息接口
+                        $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$this->tools->get_wechat_access_token();
+//        dd($url);
+                        $data = [
+                            'touser'=>'oIhHHwSoKsFZacgx0NZ9B9RV6xmg',
+                            'template_id'=>'wdZiz1cGT1DmRu9A8XuyEtNeCKv6B-EIHxJW4BnkAeY',
+                            "url"=>"http://weixin.qq.com/download",
+                            'data'=>[
+                                'keyword1'=>[
+                                    'value'=>$user_info['nickname'],
+                                    'color'=>'',
+                                ],
+                                'keyword2'=>[
+                                    'value'=>'未签到',
+                                    'color'=>'',
+                                ],
+                                'keyword3'=>[
+                                    'value'=>'0',
+                                    'color'=>'',
+                                ],
+                                'keyword3'=>[
+                                    'value'=>'',
+                                    'color'=>'',
+                                ],
+                            ],
+                        ];
+
+                        $res = $this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+                        dd($res);
+                    }
                 }
-
         }
 
     }
@@ -155,6 +214,7 @@ class Ceshi2Controller extends Controller
                     $arr['sub_button'][] = $button_arr;
                 }
             }
+
 //             dd($v);
             $data['button'][] = $arr;
         }
