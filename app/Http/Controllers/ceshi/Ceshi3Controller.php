@@ -4,10 +4,17 @@ namespace App\Http\Controllers\ceshi;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Tools\Tools;
 use DB;
 
 class Ceshi3Controller extends Controller
 {
+    public $tools;
+    public function __construct(Tools $tools)
+    {
+        $this->tools = $tools;
+    }
+
     //课程管理登录页面
     public function guanli()
     {
@@ -37,11 +44,11 @@ class Ceshi3Controller extends Controller
         $url1 = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$res['access_token'].'&openid='.$res['openid'].'&lang=zh_CN';
         $re = file_get_contents($url1);
         $re = json_decode($re,1);
+
         $req = DB::connection('1901')->table('kecheng')->update(['openid'=>$re['openid']]);
-//        dd($re);
-        if($req){
+
             return redirect('ceshi3/manage');
-        }
+
 
     }
     //课程管理页面
