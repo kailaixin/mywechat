@@ -33,9 +33,12 @@ class EventController extends Controller
 //        echo $_GET['echostr'];
         //业务逻辑部分
 //             管理课程逻辑部分
-            if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'CLICK'){
+            if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'VIEW'){
                    if ($xml_arr['EventKey'] == 'guanli'){//管理课程页面
-                       return redirect('/ceshi3/guanli');
+                       $url_guanli='https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info?access_token='.$this->tools->get_wechat_access_token();
+                      $req = file_get_contents($url_guanli);
+                      $req = json_decode($req,1);
+//                      dd($req);
                    }
                    if($xml_arr['EventKey'] == 'chakan'){//查看课程页面
 
