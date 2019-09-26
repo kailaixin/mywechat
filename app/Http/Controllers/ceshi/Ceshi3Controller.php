@@ -26,7 +26,7 @@ class Ceshi3Controller extends Controller
     {
         $post = request()->all();
 //        dd($post);
-        $redirect_uri = 'http://www.59.110.216.249.com/ceshi3/code';
+        $redirect_uri = 'http://59.110.216.249/ceshi3/code';
         $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.env('WECHAT_APPID').'&redirect_uri='.urlencode($redirect_uri).'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
 //        file_get_contents($url);
         header('Location:'.$url);
