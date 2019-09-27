@@ -106,13 +106,25 @@ class Ceshi3Controller extends Controller
 //        dd($post);
         $count = DB::connection('1901')->table('kecheng')->where(['ke_id'=>$post['ke_id']])->first();
 //        dd($count);
+        $update = 0;
         if($count->update >3 && $count->openid){
             echo "<script> alert('您的修改次数已经达到了上限');location.href='/ceshi3/update'; </script>";die;
         }else{
-            $data = DB::connection('1901')->table('kecheng')->update($post);
-            if($data){
+            $data = DB::connection('1901')->table('kecheng')->update([
+                'php'=>$post['php'],
+                'yuwen'=>$post['yuwen'],
+                'shuxue'=>$post['shuxue'],
+                'yingyu'=>$post['yingyu'],
+                'update'=>$update + 1,
+            ]);
+
                 return redirect('ceshi3/index');
-            }
+
         }
+    }
+    //查看课程页面
+    public function chakan()
+    {
+        $data = DB::connection('1901')->table('kecheng')->get();
     }
 }

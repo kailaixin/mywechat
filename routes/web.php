@@ -268,4 +268,5 @@ Route::prefix('ceshi3')->group(function(){
     Route::get('index','ceshi\Ceshi3Controller@index');//课程展示页面
     Route::get('update','ceshi\Ceshi3Controller@update');//课程修改页面
     Route::post('update_do','ceshi\Ceshi3Controller@update_do');//课程修改页面处理
+    Route::get('chakan','ceshi\Ceshi3Controller@chakan');//查看课程页面
 });
