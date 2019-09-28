@@ -270,3 +270,10 @@ Route::prefix('ceshi3')->group(function(){
     Route::post('update_do','ceshi\Ceshi3Controller@update_do');//课程修改页面处理
     Route::get('chakan','ceshi\Ceshi3Controller@chakan');//查看课程页面
 });
+
+/******************************************八月月考*****************************************************************************/
+Route::prefix('yuekao')->group(function(){
+    Route::get('get_token','ceshi\yuekaocontroller@get_token');//获得access_token
+
+});
+
