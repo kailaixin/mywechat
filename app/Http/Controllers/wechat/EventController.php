@@ -20,7 +20,7 @@ class EventController extends Controller
 //        dd($_POST);
         $xml_string = file_get_contents('php://input'); // 获取微信发过来的xml数据
 //        dd($xml_string);
-        $wechat_log_path = storage_path('/logs/wechat/'.date("Y-m-d H:i:s").'wx.log');  // 生成日志文件
+        $wechat_log_path = storage_path('/logs/wechat/'.date("Y-m-d").'wx.log');  // 生成日志文件
         file_put_contents($wechat_log_path,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n",FILE_APPEND);
         file_put_contents($wechat_log_path,$xml_string,FILE_APPEND);
         file_put_contents($wechat_log_path,"\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n",FILE_APPEND);
@@ -44,7 +44,7 @@ class EventController extends Controller
             $user_info = DB::connection('1901')->table('user_weixin')->where(['openid'=>$xml_arr['FromUserName']])->first();
 //            dd($user_info);
             if(empty($user_info)){//如果为空的话 就是没有数据 添加到数据库
-               $re =  DB::connection('1901')->table('user_weixin')->insert([
+                $re = DB::connection('1901')->table('user_weixin')->insert([
                     'openid'=>$xml_arr['FromUserName'],
                     'name'=>$req['nickname'],
                     'sex'=>$req['sex'],
