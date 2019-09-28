@@ -20,7 +20,7 @@ class EventController extends Controller
 //        dd($_POST);
         $xml_string = file_get_contents('php://input'); // 获取微信发过来的xml数据
 //        dd($xml_string);
-        $wechat_log_path = storage_path('/logs/wechat/'.date("Y-m-d").'.log');  // 生成日志文件
+        $wechat_log_path = storage_path('/logs/wechat/'.date("Y-m-d H:i:s").'wx.log');  // 生成日志文件
         file_put_contents($wechat_log_path,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n",FILE_APPEND);
         file_put_contents($wechat_log_path,$xml_string,FILE_APPEND);
         file_put_contents($wechat_log_path,"\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n",FILE_APPEND);
@@ -56,7 +56,7 @@ class EventController extends Controller
                 $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
             }else{
-                $message = '欢迎回来'.$req['nickname'].'：当前时间为 '.date('Y-m-d H:i:s',$req['subscribe_time']).'';
+                $message ='欢迎回来'.$user_info->name.'：当前时间为 '.date('Y-m-d H:i:s',$user_info->subscribe_time).'';
                 $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
             }
