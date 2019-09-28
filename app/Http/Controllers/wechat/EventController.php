@@ -62,7 +62,7 @@ class EventController extends Controller
             }
 
         }
-        $message = '欢迎回来'.$req['nickname'].'：当前时间为 '.date('Y-m-d H:i:s',$req['subscribe_time']).'';
+        $message = '您好'.$req['nickname'].'同学，感谢您的关注';
         $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
         echo $xml_str;
         }
