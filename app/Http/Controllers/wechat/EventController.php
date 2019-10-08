@@ -21,7 +21,7 @@ class EventController extends Controller
         $xml_string = file_get_contents('php://input'); // 获取微信发过来的xml数据
 //        dd($xml_string);
         $wechat_log_path = storage_path('/logs/wechat/'.date("Y-m-d").'wx.log');  // 生成日志文件
-        file_put_contents($wechat_log_path,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n",FILE_APPEND);
+        file_put_contents($wechat_log_path,"<<<<<<<<<<<<<<".date('Y-m-d H:i:s',time())."<<<<<<<<<<<<<<<<<<<<<\n",FILE_APPEND);
         file_put_contents($wechat_log_path,$xml_string,FILE_APPEND);
         file_put_contents($wechat_log_path,"\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n",FILE_APPEND);
 
@@ -51,6 +51,7 @@ class EventController extends Controller
                     'chengshi'=>$req['city'],
                     'subscribe_time'=>$req['subscribe_time'],
                 ]);
+//                dd($re);
                if($re){
                    $message = '您好'.$req['nickname'].'：当前时间为 '.date('Y-m-d H:i:s',$req['subscribe_time']).'';
                    $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';

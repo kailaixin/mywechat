@@ -29,5 +29,7 @@ class VerifyCsrfToken extends Middleware
         'ceshi2/event',
         'ceshi2/ceshi',
         'ceshi2/ceshi2',
+        'login/login_do',
+        'login/code',
     ];
 }

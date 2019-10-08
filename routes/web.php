@@ -277,3 +277,15 @@ Route::prefix('yuekao')->group(function(){
 
 });
 
+/****************************************九月学的代码*************************************************************************/
+
+/****************************************微信登录**********************************************************************************/
+Route::prefix('admin1')->group(function(){
+    Route::get('index','admin1\admincontroller@index');//后台首页
+});
+Route::prefix('login')->group(function(){
+    Route::get('login','login1\logincontroller@login');//登录页
+    Route::post('login_do','login1\logincontroller@login_do');//登录处理入库
+    Route::post('code','login1\logincontroller@code');//发送验证码
+    Route::get('bangding','login1\logincontroller@bangding');//微信绑定页面
+});
