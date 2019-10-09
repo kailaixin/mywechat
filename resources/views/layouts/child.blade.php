@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+<!-- 保存在 resources/views/child.blade.php 中 -->
+
+@extends('layouts.index')
+
+@section('title', '我的商城')
+
+@section('content')
+    <!DOCTYPE html>
 <html>
 
 <head>
@@ -41,7 +48,7 @@
                 <input type="password" class="form-control" placeholder="密码" name="user_pwd" required="">
             </div>
             <div >
-                <input type="text"  placeholder="验证码"  name="user_code" required="">
+                <input type="text"  placeholder="验证码"  name="user_code" >
                 <input type="button" id="code" value="发送微信验证码">
             </div>
             <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
@@ -67,16 +74,21 @@
 </html>
 <script src="{{asset('admin1/js/jquery.js')}}"></script>
 <script>
-  $('#code').click(function(){
-      event.preventDefault();
-      // alert(code);
-     $.ajax({
-         url:'{{url('admin1/login_do')}}',
-         type:'POST',
-        success:function(req){
-             alert(req);
-        }
-     })
-  });
+    $('#code').click(function(){
+        event.preventDefault();
+        // alert(code);
+        $.ajax({
+            url:'{{url('login/code')}}',
+
+            type:'POST',
+            success:function(req){
+                if(req.code==1){
+                    alert(req.msg);
+                }
+            }
+        })
+    });
 </script>
 
+
+@endsection

@@ -14,7 +14,10 @@ class Ceshi3Controller extends Controller
     {
         $this->tools = $tools;
     }
-
+    public function table()
+    {
+        return view('ceshi3/table');
+    }
     //课程管理登录页面
     public function guanli()
     {

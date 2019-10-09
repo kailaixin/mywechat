@@ -9,14 +9,11 @@
 </head>
 <body>
         <h3 align="center">绑定管理员账号</h3>
-        <form action="" align="center">
+        <form action="{{url('admin1/bangding_do')}}" align="center" method="post">
+            @csrf
             用户名: <input type="text" name="user_name"><br><br>
 
-            密码: <input type="text" name="user_name"><br><br>
-
-            手机号: <input type="text" name="user_name"> <input type="button" value="发送验证码"><br><br>
-
-            验证码: <input type="text" placeholder="验证码"><br><br>
+            密码: <input type="password" name="user_pwd"><br><br>
 
             <input type="submit" value="绑定管理员账号">
         </form>

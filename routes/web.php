@@ -258,7 +258,7 @@ Route::prefix('ceshi2')->group(function(){
 
 });
 
-/******************************************月考三*****************************************************************************/
+/******************************************月考测试三*****************************************************************************/
 Route::prefix('ceshi3')->group(function(){
     Route::get('guanli','ceshi\Ceshi3Controller@guanli');//第三方登录页面
     Route::post('guanli_do','ceshi\Ceshi3Controller@guanli_do');//登录处理页面
@@ -269,6 +269,7 @@ Route::prefix('ceshi3')->group(function(){
     Route::get('update','ceshi\Ceshi3Controller@update');//课程修改页面
     Route::post('update_do','ceshi\Ceshi3Controller@update_do');//课程修改页面处理
     Route::get('chakan','ceshi\Ceshi3Controller@chakan');//查看课程页面
+    Route::get('table','ceshi\Ceshi3Controller@table');//测试 表格样式
 });
 
 /******************************************八月月考*****************************************************************************/
@@ -279,13 +280,14 @@ Route::prefix('yuekao')->group(function(){
 
 /****************************************九月学的代码*************************************************************************/
 
-/****************************************微信登录**********************************************************************************/
+/****************************************微信首页 登录**********************************************************************************/
 Route::prefix('admin1')->group(function(){
     Route::get('index','admin1\admincontroller@index');//后台首页
+    Route::get('login','admin1\logincontroller@login');//登录页
+    Route::post('login_do','admin1\logincontroller@login_do');//登录处理入库
+    Route::get('code','admin1\logincontroller@code');//获取code码
+    Route::post('code1','admin1\logincontroller@code1');//发送验证码
+    Route::get('bangding','admin1\logincontroller@bangding');//微信绑定页面
+    Route::post('bangding_do','admin1\logincontroller@bangding_do');//微信绑定页面处理
 });
-Route::prefix('login')->group(function(){
-    Route::get('login','login1\logincontroller@login');//登录页
-    Route::post('login_do','login1\logincontroller@login_do');//登录处理入库
-    Route::post('code','login1\logincontroller@code');//发送验证码
-    Route::get('bangding','login1\logincontroller@bangding');//微信绑定页面
-});
+

@@ -27,7 +27,7 @@ class Ceshi1Controller extends Controller
     {
        //第一步 用户同意授权 ,获取code
         $redirect_uri = 'http://www.1902.com/ceshi1/code';
-        $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.env('WECHAT_APPID').'&redirect_uri='.urlencode($redirect_uri).'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
+        $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.env('WECHAT_APPID').'&redirect_uri='.urlencode('http://www.1902.com/ceshi1/code').'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
         header('Location:'.$url);
     }
 
