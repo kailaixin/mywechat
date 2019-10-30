@@ -12,4 +12,9 @@ class admincontroller extends Controller
     {
         return view('admin1/index');
     }
+    //后台主页
+    public function index_v1()
+    {
+        return view('admin1/index_v1');
+    }
 }

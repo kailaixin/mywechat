@@ -19,11 +19,12 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
+        \App\Http\Middleware\Api::class,
     ];
 
     /**
      * The application's route middleware groups.
-     *
+     *中间件组
      * @var array
      */
     protected $middlewareGroups = [
@@ -45,7 +46,7 @@ class Kernel extends HttpKernel
 
     /**
      * The application's route middleware.
-     *
+     *路由中间件
      * These middleware may be assigned to groups or used individually.
      *
      * @var array
@@ -62,13 +63,15 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checklogin' => \App\Http\Middleware\CheckLogin::class,
         'landing' => \App\Http\Middleware\Landing::class,
+        'apihead'=>\App\Http\Middleware\apihead::class,
+        'token'=>\App\Http\Middleware\token::class,
     ];
 
     /**
      * The priority-sorted list of middleware.
      *
      * This forces non-global middleware to always be in the given order.
-     *
+     *中间件组
      * @var array
      */
     protected $middlewarePriority = [

@@ -25,12 +25,17 @@ class VerifyCsrfToken extends Middleware
 //        'notify_url','return_url',
 //        'liuyan_info','wechat/enent',
 //        '/biaobai/notify_url'
+        'api/*',
+        'test/*',
         'wechat/event',
         'ceshi2/event',
         'ceshi2/ceshi',
         'ceshi2/ceshi2',
         'admin1/login_do',
         'admin1/code',
+        'admin1/code1',
         'admin1/bangding_do',
+        'admin1/goods/change',
+        'ceshi/pact/jiekou',
     ];
 }

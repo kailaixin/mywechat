@@ -32,7 +32,7 @@
         </div>
         <h3>欢迎使用 hAdmin</h3>
 
-        <form  role="form" action="{{url('login/login_do')}}" method="post">
+        <form  role="form" action="{{url('admin1/login_do')}}" method="post">
             @csrf
             <div class="form-group">
                 <input type="email" class="form-control" placeholder="用户名" name="user_name" required="">
@@ -41,7 +41,7 @@
                 <input type="password" class="form-control" placeholder="密码" name="user_pwd" required="">
             </div>
             <div >
-                <input type="text"  placeholder="验证码"  name="user_code" required="">
+                <input type="text"  placeholder="验证码"  name="user_code" >
                 <input type="button" id="code" value="发送微信验证码">
             </div>
             <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
@@ -68,14 +68,22 @@
 <script src="{{asset('admin1/js/jquery.js')}}"></script>
 <script>
   $('#code').click(function(){
-      event.preventDefault();
+      // event.preventDefault();
       // alert(code);
+      var user_name = $("[name='user_name']").val();
+      var user_pwd = $("[name='user_pwd']").val();
+      // alert(user_name);
      $.ajax({
-         url:'{{url('admin1/login_do')}}',
-         type:'POST',
-        success:function(req){
-             alert(req);
-        }
+         url:'{{url('admin1/code1')}}',
+         type:'post',
+         data:{user_name:user_name,user_pwd:user_pwd},
+         dataType:'json',
+         success:function(req){
+             if(req.code==1){
+                 alert(req.msg);
+                {{--location.href="{{url('admin1/index')}}";--}}
+             }
+         }
      })
   });
 </script>

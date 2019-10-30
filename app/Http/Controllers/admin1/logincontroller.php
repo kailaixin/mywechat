@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use DB;
 use App\model\Curl;
 use App\Tools\Tools;
+use phpDocumentor\Reflection\Location;
+
 class logincontroller extends Controller
 {
     public $tools;
@@ -22,7 +24,8 @@ class logincontroller extends Controller
      * */
     public function login()
     {
-
+        $code = session('user_code');
+        var_dump($code);
         return  view('login1/login');
     }
     /*
@@ -34,8 +37,6 @@ class logincontroller extends Controller
         //接收
         $post = request()->except('_token');
         $post['create_time'] = time();
-
-        dd($post);
         //查询数据库
         $adminData = DB::table('user_info')->where(['user_name'=>$post['user_name']])->first();
 //        dd($adminData);
@@ -45,6 +46,26 @@ class logincontroller extends Controller
        if($adminData->user_pwd != $post['user_pwd']){
            dd('密码不正确');
        }
+       if($post['user_code'] !=session('user_code') ){
+           dd('验证码不正确');
+       }else{
+           echo '登录成功';
+           session(['adminData'=>$adminData]);
+           header('Location: http://www.1902.com/admin1/index');
+       }
+    }
+    /*
+     * 发送微信验证码
+     * */
+    public  function code1()
+    {
+//接收
+        $post = request()->except('_token');
+        $post['create_time'] = time();
+//        dd($post);
+        //查询数据库
+        $adminData = DB::table('user_info')->where(['user_name'=>$post['user_name']])->first();
+//        dd($adminData);
 
         $openid = $adminData->openid;
         //发送验证码 4位 或6位
@@ -53,7 +74,7 @@ class logincontroller extends Controller
         $time=date('Y-m-d H:i:s',time());
 //        dd($code);
         //存入session里面
-        session(['code'=>$code]);
+        session(['user_code'=>$code],60);
         //发送模板消息
         $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$this->tools->get_wechat_access_token();
 //        dd($url);
@@ -78,14 +99,10 @@ class logincontroller extends Controller
         $data = json_encode($data);
 //        dd($data);
         $req = $this->curl->post($url,$data,JSON_UNESCAPED_UNICODE);
-//        dd($req);
-    }
-    /*
-     * 发送微信验证码
-     * */
-    public  function code1()
-    {
-
+        $req=json_decode($req,1);
+        if($req['errmsg']=='ok'){
+            return json_encode(['code'=>1,'msg'=>'发送验证码成功']);
+        }
     }
     /*
      * 微信绑定页面
@@ -135,8 +152,10 @@ class logincontroller extends Controller
         $res = file_get_contents($url1);
         $res = json_decode($res,1);
        $openid = $res['openid'];
-       DB::table('user_info')->update(['openid'=>$openid]);
-
+       $date = DB::table('user_info')->update(['openid'=>$openid]);
+//        if ($date){
+//            <script> alert('绑定成功')</script>;
+//        }
     }
 
 

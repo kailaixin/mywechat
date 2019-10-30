@@ -283,6 +283,7 @@ Route::prefix('yuekao')->group(function(){
 /****************************************微信首页 登录**********************************************************************************/
 Route::prefix('admin1')->group(function(){
     Route::get('index','admin1\admincontroller@index');//后台首页
+    Route::get('index_v1','admin1\admincontroller@index_v1');//后台首页
     Route::get('login','admin1\logincontroller@login');//登录页
     Route::post('login_do','admin1\logincontroller@login_do');//登录处理入库
     Route::get('code','admin1\logincontroller@code');//获取code码
@@ -290,4 +291,126 @@ Route::prefix('admin1')->group(function(){
     Route::get('bangding','admin1\logincontroller@bangding');//微信绑定页面
     Route::post('bangding_do','admin1\logincontroller@bangding_do');//微信绑定页面处理
 });
+/*******************************************自定义接口***********************************************************************/
+Route::prefix('api')->group(function(){
+    Route::post('test/add','api\TestController@add');//接口 添加
+    Route::get('test/show','api\TestController@show');//接口 显示
+    Route::get('test/update','api\TestController@update');//接口 修改
+    Route::post('test/update_do','api\TestController@update_do');//接口修改处理
+    Route::get('test/delete','api\TestController@delete');//接口 删除
+});
+/*******************************************模拟前端的前台页面**************************************************************************/
+//模拟前端的页面
+Route::get('test/add',function(){
+    return view('test/add');
+});//添加页面
 
+Route::get('test/add',function(){
+    return view('test/add');
+});//添加页面
+
+Route::post('test/jiekou',function(){
+
+});//展示
+Route::get('test/update',function(){
+    return view('test/update');
+});//修改
+/**********************************************资源控制器**********************************************************************************/
+
+//Route::resource('api/user', 'api\UserController');//资源控制器
+
+/********************************************10月14号周考******************************************************************************/
+Route::prefix('api')->group(function(){
+    Route::post('test1/add','api\Test1Controller@add');//接口 商品添加
+    Route::get('test1/show','api\Test1Controller@show');//接口 商品展示
+    Route::post('test1/weather','api\Test1Controller@weather');//接口 查询天气接口
+    Route::get('test1/test','api\Test1Controller@test');//接口月考测试
+    Route::post('test1/login_do','api\Test1Controller@login_do');//用户登录处理
+    Route::post('test1/reg_do','api\Test1Controller@reg_do');//用户注册处理
+});
+/******************************************10月14号模拟前端展示页**************************************************************************************/
+Route::get('test1/add',function (){
+    return view ('test1/add');
+});//商品添加页面
+Route::get('test1/show',function(){
+   return view('test1/show');
+});//商品展示页面
+Route::get('test1/weather',function(){
+    return view('test1/weather');
+});//调用天气接口artisan
+Route::get('test1/test',function(){
+    return view('test1/test');
+});//调用时事新闻接口artisan
+////////////////////////////////////***********************************************************************************************/
+Route::get('test1/reg',function(){
+    return view('test1/reg');
+});//用户注册页面
+Route::get('test1/login',function(){
+    return view('test1/login');
+});//用户登录页面
+/*******************1**************************商品分类***************************************************************/
+Route::prefix('admin1')->group(function(){//商品分类
+    Route::get('cate/add','admin1\CateController@add');//分类添加
+    Route::post('cate/add_do','admin1\CateController@add_do');//分类处理
+    Route::get('cate/show','admin1\CateController@show');//分类展示
+});
+
+/********************************************商品类型*****************************************************************************/
+Route::prefix('admin1')->group(function(){//商品类型
+    Route::get('type/add','admin1\TypeController@add');//商品类型
+    Route::post('type/add_do','admin1\TypeController@add_do');//类型处理
+    Route::get('type/show','admin1\TypeController@show');//类型展示
+});
+/******************************************商品属性***************************************************************************/
+Route::prefix('admin1')->group(function(){//商品属性
+    Route::get('attr/add','admin1\AttrController@add');//属性添加
+    Route::post('attr/add_do','admin1\AttrController@add_do');//属性处理
+    Route::get('attr/show','admin1\AttrController@show');//属性展示
+    Route::get('attr/delete','admin1\AttrController@delete');//批量删除
+});
+/****************************************商品添加*****************************************************************************************************/
+Route::prefix('admin1')->group(function(){//商品信息模块
+    Route::get('goods/add','admin1\GoodsController@add');//商品添加
+    Route::post('goods/add_do','admin1\GoodsController@add_do');//商品添加处理
+    Route::get('goods/item','admin1\GoodsController@item');//货品添加页
+    Route::post('goods/item_do','admin1\GoodsController@item_do');//货品添加页处理
+    Route::post('goods/change','admin1\GoodsController@change');//商品添加内容改变事件
+    Route::get('goods/show','admin1\GoodsController@show');//商品列表展示页面
+});
+
+/***********************************************************************************************************************************/
+Route::prefix('ceshi')->group(function(){
+    Route::get('pact/add','ceshi\yuekaocontroller@add');//周末练习
+    Route::get('pact/list','ceshi\yuekaocontroller@list');//周末练习
+    Route::get('pact/jiekou','ceshi\yuekaocontroller@jiekou');//周末练习
+});
+/********************************************api 调用接口*********************************************************************/
+Route::prefix('api')->middleware('apihead')->group(function(){
+    Route::get('goods/news','api\goodscontroller@news');//最新商品查询
+    Route::get('goods/list','api\goodscontroller@list');//分类列表查询
+    Route::get('goods/play','api\goodscontroller@play');//商品详情页查询
+    Route::get('goods/cate','api\goodscontroller@cate');//查询分类下的所有信息
+
+    Route::middleware('token')->group(function(){
+        Route::get('goods/cartAdd','api\goodscontroller@cartAdd');//购物车添加
+        Route::get('goods/cartShow','api\goodscontroller@cartShow');//购物车展示
+
+    });
+
+});
+
+/*************************************api登录页面**********************************************************************************/
+Route::prefix('api')->middleware('apihead')->group(function(){
+    Route::post('user/log','api\ApiuserController@log');//api 登录
+    Route::get('user/getuser','api\ApiuserController@getuser');//api 查询token
+
+});
+
+/**********************************10月56号作业*********************************************************************/
+Route::prefix('weekend')->group(function(){
+    Route::get('index','ceshi\WeekendController@index');//数组数据处理测试
+    Route::get('aes','ceshi\WeekendController@aes');//对称加密
+    Route::get('rsa','ceshi\WeekendController@rsa');//非对称加密
+});
+
+/***********************************接口月考测试******************************************************************************************/
