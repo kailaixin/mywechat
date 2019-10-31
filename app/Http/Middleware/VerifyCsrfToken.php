@@ -37,5 +37,6 @@ class VerifyCsrfToken extends Middleware
         'admin1/bangding_do',
         'admin1/goods/change',
         'ceshi/pact/jiekou',
+        'ceshi4/login_do'
     ];
 }

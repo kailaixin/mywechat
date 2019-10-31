@@ -26,19 +26,20 @@ class apihead
         $ip = $_SERVER['REMOTE_ADDR'];
         //记录当前ip 一分钟内访问了多少次接口 存在缓存内
         $cache_name = "pass_time_".$ip;
+//        dd($cache_name);
         //先读缓存 没有访问次数的话 赋值0 有访问次数累加
         $num = Cache::get($cache_name);
         if (!$num){
             $num = 0;
         }
-//        if ($num >= 10){
-//           echo json_encode([
-//               'code'=>201,
-//               'msg'=>'访问频繁 请稍后再试',
-//           ]);die;
-//        }
-        $num += 1;
-//        echo $num;die;
+//        echo $num;
+        if ($num >= 5){
+           echo json_encode([
+               'code'=>201,
+               'msg'=>'访问频繁 请稍后再试',
+           ]);
+        }die;
+
         Cache::put($cache_name,$num);//存入缓存内
 
         $mid_params = ['num'=>$num];

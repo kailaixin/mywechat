@@ -414,3 +414,28 @@ Route::prefix('weekend')->group(function(){
 });
 
 /***********************************接口月考测试******************************************************************************************/
+Route::prefix('ceshi4')->middleware('apihead')->group(function(){
+    Route::get('reg','ceshi\Ceshi4Controller@reg');//注册
+    Route::post('reg_do','ceshi\Ceshi4Controller@reg_do');//注册处理
+    Route::post('login_do','ceshi\Ceshi4Controller@login_do');//登录处理
+    Route::get('login','ceshi\Ceshi4Controller@login');//登录
+
+
+    Route::middleware('token')->group(function(){
+        Route::get('admin','ceshi\Ceshi4Controller@admin');//添加安全域名
+        Route::post('admin_do','ceshi\Ceshi4Controller@admin_do)');//处理安全域名
+
+    });
+
+
+});
+/***************************************************************************************************************************************/
+Route::prefix('api')->group(function(){
+    Route::get('test/news','api\TestController@news');//调用接口 事实新闻
+
+});
+Route::get('test/list',function(){
+    return view('test/list');
+});//用户注册页面
+
+

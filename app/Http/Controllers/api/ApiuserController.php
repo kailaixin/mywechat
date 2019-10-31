@@ -30,7 +30,7 @@ class ApiuserController extends Controller
     public function getuser()
     {
         //接收token
-        $token = request()->input('token');
+        $token = request()->input('usertoken');
         if (empty($token)){
             //如果token不存在给出提示
             return json_encode(['code'=>201,'msg'=>'请先登录']);
